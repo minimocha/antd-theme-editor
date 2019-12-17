@@ -1,37 +1,13 @@
-import React from "react";
-import { configure, addDecorator, setAddon } from "@storybook/react";
-import { BrowserRouter } from "react-router-dom";
-import { checkA11y } from "@storybook/addon-a11y";
-import { BackgroundColor } from "react-storybook-decorator-background";
-import { setOptions } from "@storybook/addon-options";
-import centered from "@storybook/addon-centered";
-
-import JSXAddon from "storybook-addon-jsx";
+import { configure } from '@storybook/react';
 
 import "../src/style.less";
-
-setAddon(JSXAddon);
-
-setOptions({
-  name: "AntDesign Theme Editor",
-  url: "https://github.com/minheq/antd-theme-editor",
-  sortStoriesByKind: false,
-  hierarchySeparator: /\./,
-  hierarchyRootSeparator: /\|/
-});
-
-const antReq = require.context("../src/stories", true, /\.stories\.js$/);
-
-// global decorators
-addDecorator(checkA11y);
-addDecorator(centered)
-addDecorator(story => <BrowserRouter>{story()}</BrowserRouter>);
-addDecorator(story => (
-  <BackgroundColor colors={["#ffffff", "#000000"]} story={story} />
-));
+import '../css/style.css';
+import '../css/icons.css';
 
 function loadStories() {
-  antReq.keys().forEach(filename => antReq(filename));
+  require('../src/stories/General/');
+  require('../src/stories/Pages/');
+  // You can require as many stories as you need.
 }
 
 configure(loadStories, module);
